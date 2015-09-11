@@ -3,7 +3,7 @@ A Clojure wrapper for the [expiringmap](https://github.com/jhalterman/expiringma
 
 ## Usage
 
-[]
+[![Clojars Project](http://clojars.org/expiring-map/latest-version.svg)](http://clojars.org/expiring-map)
 
 ```clojure
 (use 'expiring-map.core)
