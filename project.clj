@@ -1,4 +1,4 @@
-(defproject expiring-map "0.1.1"
+(defproject expiring-map "0.1.2"
   :description "a thread-safe map that expires entries"
   :url "https://github.com/yogthos/expiring-map"
   :license {:name "Apache 2.0 License"
