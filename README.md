@@ -6,6 +6,8 @@ A Clojure wrapper for the [expiringmap](https://github.com/jhalterman/expiringma
 []
 
 ```clojure
+(use 'expiring-map.core)
+
 (def cache (expiring-map 10))
 
 (put! cache :foo "bar")
@@ -13,6 +15,12 @@ A Clojure wrapper for the [expiringmap](https://github.com/jhalterman/expiringma
 (get cache :bar)
 (get cache :foo)
 (get cache :bar "defualt")
+
+(count cache)
+(vals cache)
+(keys cache)
+(empty? cache)
+(dissoc cache :foo)
 ```
 
 The time unit defaults to seconds, the following time units are supported:

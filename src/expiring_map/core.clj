@@ -18,11 +18,23 @@
 
 (defprotocol Cache
   (put! [this k v])
-  (get [this k] [this k default]))
+  (clear [this])
+  (count [this])
+  (empty? [this])
+  (dissoc [this k])
+  (get [this k] [this k default])
+  (keys [this])
+  (vals [this]))
 
-(extend-protocol Cache
-  ExpiringMap
+(extend-type ExpiringMap
+  Cache
+  (count [this] (.size this))
   (put! [this k v] (.put this k v))
+  (clear [this] (.clear this))
+  (empty? [this] (.isEmpty this))
+  (dissoc [this k] (.remove this k))
   (get
    ([this k] (.get this k))
-   ([this k default](or (.get this k) default))))
+   ([this k default](or (.get this k) default)))
+  (keys [this] (seq (.keySet this)))
+  (vals [this] (seq (.values this))))
