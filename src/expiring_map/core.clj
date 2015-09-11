@@ -1,4 +1,5 @@
 (ns expiring-map.core
+  (:refer-clojure :exclude [count get dissoc! put! keys vals empty?])
   (:import net.jodah.expiringmap.ExpiringMap
            java.util.concurrent.TimeUnit))
 
@@ -18,21 +19,21 @@
 
 (defprotocol Cache
   (put! [this k v])
-  (clear [this])
+  (clear! [this])
+  (dissoc! [this k])
   (count [this])
   (empty? [this])
-  (dissoc [this k])
   (get [this k] [this k default])
   (keys [this])
   (vals [this]))
 
 (extend-type ExpiringMap
   Cache
-  (count [this] (.size this))
   (put! [this k v] (.put this k v))
-  (clear [this] (.clear this))
+  (clear! [this] (.clear this))
+  (dissoc! [this k] (.remove this k))
+  (count [this] (.size this))
   (empty? [this] (.isEmpty this))
-  (dissoc [this k] (.remove this k))
   (get
    ([this k] (.get this k))
    ([this k default](or (.get this k) default)))
