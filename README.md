@@ -1,5 +1,7 @@
 # expiring-map
+
 A Clojure wrapper for the [expiringmap](https://github.com/jhalterman/expiringmap).
+The expiring-map is a thread-safe mutable map that supports expiry for elements.
 
 ## Usage
 
