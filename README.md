@@ -10,7 +10,7 @@ A Clojure wrapper for the [expiringmap](https://github.com/jhalterman/expiringma
 
 (def cache (em/expiring-map 10))
 
-(em/put! cache :foo "bar")
+(em/assoc! cache :foo "bar")
 
 (em/get cache :bar)
 (em/get cache :foo)

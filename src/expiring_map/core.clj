@@ -18,7 +18,7 @@
       (.build)))
 
 (defprotocol Cache
-  (put! [this k v])
+  (assoc! [this k v])
   (clear! [this])
   (dissoc! [this k])
   (count [this])
@@ -29,7 +29,7 @@
 
 (extend-type ExpiringMap
   Cache
-  (put! [this k v] (.put this k v))
+  (assoc! [this k v] (.put this k v))
   (clear! [this] (.clear this))
   (dissoc! [this k] (.remove this k))
   (count [this] (.size this))
