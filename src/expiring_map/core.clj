@@ -2,24 +2,27 @@
   (:import net.jodah.expiringmap.ExpiringMap
            java.util.concurrent.TimeUnit))
 
-(def time-unit
-  {:seconds TimeUnit/SECONDS
-   :minutes TimeUnit/MINUTES
-   :hours   TimeUnit/HOURS})
+(def ^:private time-unit
+  {:nanoseconds  TimeUnit/NANOSECONDS
+   :microseconds TimeUnit/MICROSECONDS
+   :milliseconds TimeUnit/MILLISECONDS
+   :seconds      TimeUnit/SECONDS
+   :minutes      TimeUnit/MINUTES
+   :hours        TimeUnit/HOURS
+   :day          TimeUnit/DAYS})
 
-(defn expiring-map []
+(defn expiring-map [timeout & [units]]
   (-> (ExpiringMap/builder)
-      (.expiration 30 TimeUnit/MINUTES)
+      (.expiration timeout (clojure.core/get time-unit units TimeUnit/SECONDS))
       (.build)))
 
 (defprotocol Cache
   (put! [this k v])
-  (get [this k]))
+  (get [this k] [this k default]))
 
 (extend-protocol Cache
   ExpiringMap
   (put! [this k v] (.put this k v))
-  (get [this k] (.get this k)))
-
-
-
+  (get
+   ([this k] (.get this k))
+   ([this k default](or (.get this k) default))))
