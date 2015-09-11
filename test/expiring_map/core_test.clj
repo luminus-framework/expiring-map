@@ -3,7 +3,7 @@
             [expiring-map.core :refer :all]))
 
 (deftest put!-get-test
-  (let [m (expiring-map)]
+  (let [m (expiring-map 10)]
     (put! m :foo "bar")
     (put! m :bar [:foo :bar 123 "baz" {:foo "bar"}])
     (= m {:foo "bar", :bar [:foo :bar 123 "baz" {:foo "bar"}]})
