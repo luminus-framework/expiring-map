@@ -6,24 +6,24 @@ A Clojure wrapper for the [expiringmap](https://github.com/jhalterman/expiringma
 [![Clojars Project](http://clojars.org/expiring-map/latest-version.svg)](http://clojars.org/expiring-map)
 
 ```clojure
-(use 'expiring-map.core)
+(require '[expiring-map.core :as em])
 
-(def cache (expiring-map 10))
+(def cache (em/expiring-map 10))
 
-(put! cache :foo "bar")
+(em/put! cache :foo "bar")
 
-(get cache :bar)
-(get cache :foo)
-(get cache :bar "defualt")
+(em/get cache :bar)
+(em/get cache :foo)
+(em/get cache :bar "defualt")
 
-(count cache)
-(vals cache)
-(keys cache)
-(empty? cache)
-(dissoc cache :foo)
+(em/count cache)
+(em/vals cache)
+(em/keys cache)
+(em/empty? cache)
+(em/dissoc cache :foo)
 ```
 
-The time unit defaults to seconds, the following time units are supported:
+The time unit defaults to `:seconds`, the following time units are supported:
 
 * `:nanoseconds`
 * `:microseconds`
@@ -36,7 +36,7 @@ The time unit defaults to seconds, the following time units are supported:
 e.g:
 
 ```clojure
-(expiring-map 10 :seconds)
+(expiring-map 10 :minutes)
 ```
 
 ## License
