@@ -1,5 +1,5 @@
 (ns expiring-map.core
-  (:refer-clojure :exclude [count get dissoc! put! keys vals empty?])
+  (:refer-clojure :exclude [count get assoc! dissoc! put! keys vals empty?])
   (:import net.jodah.expiringmap.ExpiringMap
            java.util.concurrent.TimeUnit))
 
