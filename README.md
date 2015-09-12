@@ -22,7 +22,11 @@ The expiring-map is a thread-safe mutable map that supports expiry for elements.
 (em/vals cache)
 (em/keys cache)
 (em/empty? cache)
-(em/dissoc cache :foo)
+(em/dissoc! cache :foo)
+
+(em/assoc! cache :foo "foo")
+(em/assoc! cache :bar "bar")
+(em/clear! cache)
 ```
 
 The time unit defaults to `:seconds`, the following time units are supported:
