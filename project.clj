@@ -4,4 +4,13 @@
   :license {:name "Apache 2.0 License"
             :url "https://www.apache.org/licenses/LICENSE-2.0.html"}
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [net.jodah/expiringmap "0.5.0"]])
+                 [net.jodah/expiringmap "0.5.0"]]
+
+  :test-selectors {:default   (complement :benchmark)
+                   :benchmark :benchmark
+                   :all       (constantly true)}
+
+  :profiles
+  {:dev
+   {:jvm-opts ["-XX:-TieredCompilation"]
+    :dependencies [[criterium "0.4.3" :scope "test"]]}})
