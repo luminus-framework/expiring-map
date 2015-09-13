@@ -38,5 +38,3 @@
      (do
        (swap! cache assoc :foo value)
        (swap! cache dissoc :foo)))))
-
-
