@@ -37,8 +37,7 @@ In addition, the map provides the following functions for mutating its values:
 
 (em/dissoc! cache :foo)
 
-(em/assoc! cache :foo "foo")
-(em/assoc! cache :bar "bar")
+(em/assoc! cache :foo "foo" :bar "bar")
 (em/reset-expiration! cache :foo)
 (em/clear! cache)
 ```
