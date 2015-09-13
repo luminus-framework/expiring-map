@@ -57,6 +57,7 @@
    (doseq [k ks]
      (.remove m k))
    m))
+
 (defn clear! [m]
   (.clear m) m)
 
