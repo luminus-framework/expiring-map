@@ -13,4 +13,5 @@
   :profiles
   {:dev
    {:jvm-opts ["-XX:-TieredCompilation"]
-    :dependencies [[criterium "0.4.3" :scope "test"]]}})
+    :dependencies [[criterium "0.4.3" :scope "test"]
+                   [org.clojure/core.cache "0.6.4"]]}})

@@ -83,6 +83,52 @@ accepts the key and the value that expires:
             10
             {:listeners [(fn [k v] (println "Expired:" k v))]}))
 ```
+
+### Criterium Benchmarks
+
+The benchmarks below test the assoc/dissoc cycle
+for the expiring-map, regular atom, and core.cache
+atom.
+
+### atom
+```
+WARNING: Final GC required 409.9942905040538 % of runtime
+Evaluation count : 4756014 in 6 samples of 792669 calls.
+             Execution time mean : 120.809576 ns
+    Execution time std-deviation : 2.684070 ns
+   Execution time lower quantile : 118.923613 ns ( 2.5%)
+   Execution time upper quantile : 124.374281 ns (97.5%)
+                   Overhead used : 1.988494 ns
+```
+
+#### expiring-map
+
+```
+WARNING: Final GC required 481.8947027815336 % of runtime
+Evaluation count : 1893510 in 6 samples of 315585 calls.
+             Execution time mean : 322.901037 ns
+    Execution time std-deviation : 11.538941 ns
+   Execution time lower quantile : 313.718453 ns ( 2.5%)
+   Execution time upper quantile : 340.737836 ns (97.5%)
+                   Overhead used : 1.988494 ns
+
+Found 1 outliers in 6 samples (16.6667 %)
+	low-severe	 1 (16.6667 %)
+ Variance from outliers : 13.8889 % Variance is moderately inflated by outliers
+```
+
+#### core.cache
+
+```
+WARNING: Final GC required 398.9148954873636 % of runtime
+Evaluation count : 925734 in 6 samples of 154289 calls.
+             Execution time mean : 645.750787 ns
+    Execution time std-deviation : 19.287433 ns
+   Execution time lower quantile : 625.196819 ns ( 2.5%)
+   Execution time upper quantile : 666.538213 ns (97.5%)
+                   Overhead used : 1.988494 ns
+```
+
 ## License
 
 Copyright © 2015 Dmitri Sotnikov
