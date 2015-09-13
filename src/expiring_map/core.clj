@@ -24,7 +24,6 @@
 (defn- set-timeout [builder timeout {:keys [time-unit]}]
   (.expiration builder timeout (clojure.core/get time-units time-unit TimeUnit/SECONDS)))
 
-
 (defn- listeners [builder {:keys [listeners]}]
   (reduce
    (fn [builder listener]
@@ -41,24 +40,25 @@
       (listeners opts)
       (.build)))
 
-(defprotocol Cache
-  (assoc! [this k v])
-  (clear! [this])
-  (dissoc! [this k])
-  (reset-expiration! [this k]))
+(defn assoc!
+  ([m k v]
+   (.put m k v)
+   m)
+  ([m k v & kvs]
+   (.put m k v)
+   (doseq [[k v] (partition 2 kvs)]
+     (.put m k v))
+   m))
 
+(defn dissoc!
+  ([m k] (.remove m k) m)
+  ([m k & ks]
+   (.remove m k)
+   (doseq [k ks]
+     (.remove m k))
+   m))
+(defn clear! [m]
+  (.clear m) m)
 
-(extend-type ExpiringMap
-  Cache
-  (assoc! [this k v] (.put this k v))
-  (clear! [this] (.clear this))
-  (dissoc! [this k] (.remove this k))
-  (reset-expiration! [this k] (.resetExpiration this k)))
-
-(def cache (expiring-map 10))
-
-(assoc! cache :foo "bar")
-
-(get cache :foo)
-
-(reset-expiration! cache :foo)
+(defn reset-expiration! [m k]
+  (.resetExpiration m k) m)
