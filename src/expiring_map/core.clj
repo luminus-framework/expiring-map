@@ -41,25 +41,25 @@
       (.build)))
 
 (defn assoc!
-  ([m k v]
+  ([^ExpiringMap m k v]
    (.put m k v)
    m)
-  ([m k v & kvs]
+  ([^ExpiringMap m k v & kvs]
    (.put m k v)
    (doseq [[k v] (partition 2 kvs)]
      (.put m k v))
    m))
 
 (defn dissoc!
-  ([m k] (.remove m k) m)
-  ([m k & ks]
+  ([^ExpiringMap m k] (.remove m k) m)
+  ([^ExpiringMap m k & ks]
    (.remove m k)
    (doseq [k ks]
      (.remove m k))
    m))
 
-(defn clear! [m]
+(defn clear! [^ExpiringMap m]
   (.clear m) m)
 
-(defn reset-expiration! [m k]
+(defn reset-expiration! [^ExpiringMap m k]
   (.resetExpiration m k) m)
