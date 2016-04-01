@@ -1,6 +1,10 @@
 (ns expiring-map.core
   (:refer-clojure :exclude [assoc! dissoc!])
-  (:import[net.jodah.expiringmap ExpirationPolicy ExpiringMap ExpirationListener]
+  (:import[net.jodah.expiringmap
+           ExpirationPolicy
+           ExpiringMap
+           ExpiringMap$Builder
+           ExpirationListener]
            java.util.concurrent.TimeUnit))
 
 (def ^:private time-units
@@ -16,15 +20,15 @@
   {:access   ExpirationPolicy/ACCESSED
    :creation ExpirationPolicy/CREATED})
 
-(defn- expiration-policy [builder {:keys [expiration-policy]}]
+(defn- expiration-policy [^ExpiringMap$Builder builder {:keys [expiration-policy]}]
   (if-let [policy (expiration-policies expiration-policy)]
    (.expirationPolicy builder policy)
     builder))
 
-(defn- set-timeout [builder timeout {:keys [time-unit]}]
+(defn- set-timeout [^ExpiringMap$Builder builder timeout {:keys [time-unit]}]
   (.expiration builder timeout (clojure.core/get time-units time-unit TimeUnit/SECONDS)))
 
-(defn- listeners [builder {:keys [listeners]}]
+(defn- listeners [^ExpiringMap$Builder builder {:keys [listeners]}]
   (reduce
    (fn [builder listener]
      (.expirationListener
