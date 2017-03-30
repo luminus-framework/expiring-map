@@ -28,6 +28,11 @@
 (defn- set-timeout [^ExpiringMap$Builder builder timeout {:keys [time-unit]}]
   (.expiration builder timeout (clojure.core/get time-units time-unit TimeUnit/SECONDS)))
 
+(defn- set-max-size [^ExpiringMap$Builder builder {:keys [max-size]}]
+  (if max-size
+    (.maxSize builder max-size)
+    builder))
+
 (defn- listeners [^ExpiringMap$Builder builder {:keys [listeners]}]
   (reduce
    (fn [builder listener]
@@ -40,6 +45,7 @@
 (defn expiring-map [timeout & [opts]]
   (-> (ExpiringMap/builder)
       (expiration-policy opts)
+      (set-max-size opts)
       (set-timeout timeout opts)
       (listeners opts)
       (.build)))
